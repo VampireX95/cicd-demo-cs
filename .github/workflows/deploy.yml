@@ -3,7 +3,7 @@ name: Deploy to S3 Public Bucket
 on:
   push:
     branches:
-      - master  # Trigger only on pushes to master
+      - main  # Trigger only on pushes to master
 
 jobs:
   deploy:
