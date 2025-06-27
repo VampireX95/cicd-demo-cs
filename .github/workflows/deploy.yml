@@ -1,0 +1,26 @@
+name: Deploy to S3 Public Bucket
+
+on:
+  push:
+    branches:
+      - master  # Trigger only on pushes to master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Sync to S3 (Public Bucket)
+        run: |
+          aws s3 sync . s3://cs-demo-frontend \
+            --delete \
+            --acl public-read \
+            --exclude ".git/*" \
+            --exclude ".github/*"
